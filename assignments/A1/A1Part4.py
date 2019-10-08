@@ -1,6 +1,7 @@
 import sys
 import os
 import numpy as np
+import matplotlib.pyplot as plt
 import re
 sys.path.append('../../software/models/')
 from utilFunctions import wavread, wavwrite
@@ -34,3 +35,16 @@ def downsampleAudio(inputFile, M):
     wavwrite(downSampleByM, outputRate, 'test%s_downsampled.wav' %(M))
 
     return
+
+def testAudio ():
+    samplingRate = 44100
+    freq = 30000
+    duration = 2.0
+    samples = np.arange(duration*samplingRate)
+    signal = np.sin(2*np.pi*freq*samples/samplingRate)
+    ##print(signal)
+    #plt.plot(duration, signal)
+    #plt.show()
+    wavwrite(signal, samplingRate, "testa.wav")
+    return
+testAudio()
