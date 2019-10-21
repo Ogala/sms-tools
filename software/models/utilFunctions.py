@@ -7,7 +7,7 @@ from sys import platform
 import subprocess
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), './utilFunctions_C/'))
 try:
-	import utilFunctions_C as UF_C
+	import utilFunctions as UF_C
 except ImportError:
 	print ("\n")
 	print ("-------------------------------------------------------------------------------")
