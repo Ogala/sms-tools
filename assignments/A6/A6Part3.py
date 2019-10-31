@@ -85,8 +85,8 @@ def estimateInharmonicity(inputFile = '../../sounds/piano.wav', t1=0.1, t2=0.5, 
     f0 = HM.f0Detection(x, fs, w, N, H, t, minf0, maxf0, f0et)
     # 2. Extract the time segment in which you need to compute the inharmonicity.
 
-    l1 = np.ceil(t1*float(fs)/H) #frame start
-    l2 = np.ceil(t2*float(fs)/H) #frame end
+    l1 = int(np.ceil(t1*float(fs)/H)) #frame start
+    l2 = int(np.ceil(t2*float(fs)/H)) #frame end
     harmonicsFrame = xhfreq[l1:l2]
     f0Frame = f0[l1:l2]
 

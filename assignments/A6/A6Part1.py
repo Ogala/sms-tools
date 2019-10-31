@@ -85,8 +85,8 @@ def estimateF0(inputFile = '../../sounds/cello-double-2.wav'):
     f0 = HM.f0Detection(x, fs, w, N, H, t, minf0, maxf0, f0et)  #estimating F0
     startFrame = np.floor(0.5*fs/H)    
     endFrame = np.ceil(4.0*fs/H)
-    f0[:startFrame] = 0
-    f0[endFrame:] = 0
+    f0[:int(startFrame)] = 0
+    f0[int(endFrame):] = 0
     y = UF.sinewaveSynth(f0, 0.8, H, fs)
     UF.wavwrite(y, fs, 'synthF0Contour.wav')
 

@@ -101,7 +101,7 @@ def segmentStableNotesRegions(inputFile = '../../sounds/sax-phrase-short.wav', s
     ### your code here
 
     # 1. convert f0 values from Hz to Cents (as described in pdf document)
-    f0Cents = 1200*np.log2(f0=eps/55.0)
+    f0Cents = 1200*np.log2(f0+eps/55.0)
 
     #2. create an array containing standard deviation of last winStable samples
     wOffset  = winStable - 1
