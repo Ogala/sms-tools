@@ -1,11 +1,13 @@
+
 import numpy as np
 from scipy.signal import get_window
 import math
-import sys, os
-sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../../software/models/'))
-import dftModel as DFT
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(
+    os.path.realpath(__file__)), '../../software/models/'))
 import utilFunctions as UF
-
+import dftModel as DFT
 """ 
 A5-Part-1: Minimizing the frequency estimation error of a sinusoid
 
@@ -46,6 +48,8 @@ values are M = 1101, N = 2048, fEst = 1000.02 and the freqency estimation error 
 Test case 3: If you run your code with inputFile = '../../sounds/sine-200.wav', f = 200.0 Hz, the optimal
 values are M = 1201, N = 2048, fEst = 200.038 and the freqency estimation error is 0.038.
 """
+
+
 def minFreqEstErr(inputFile, f):
     """
     Inputs:
@@ -59,5 +63,19 @@ def minFreqEstErr(inputFile, f):
     # analysis parameters:
     window = 'blackman'
     t = -40
-    
-    ### Your code here
+
+    # Your code here
+    (fs, x) = UF.wavread(inputFile)
+
+    for k in range(1,50):
+        M = 100*k+1
+        N = 2**int(np.ceil(np.log2(M)))
+        w = get_window(window, M)
+        x1 = x[int(.5*fs-((M-1)/2)):int(.5*fs+((M+1)/2))]
+        mX, pX = DFT.dftAnal(x1, w, N)
+        pLoc = UF.peakDetection(mX, t)
+        (peakLoc, pMag, pPhase) = UF.peakInterp(mX, pX, pLoc)
+        fEst = (peakLoc[0]/N)*fs
+        if abs(fEst-f) < 0.05:
+            break 
+    return fEst, M, N
