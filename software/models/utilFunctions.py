@@ -1,13 +1,14 @@
 import numpy as np
 from scipy.signal import resample, blackmanharris, triang
 from scipy.fftpack import fft, ifft, fftshift
-import math, copy, sys, os
+
 from scipy.io.wavfile import write, read
 from sys import platform
 import subprocess
+import math, copy, sys, os
 sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), './utilFunctions_C/'))
 try:
-	import utilFunctions_C as UF_C
+	import utilFunctions as UF_C
 except ImportError:
 	print ("\n")
 	print ("-------------------------------------------------------------------------------")
@@ -290,7 +291,7 @@ def f0Twm(pfreq, pmag, ef0max, minf0, maxf0, f0t=0):
 	if (f0cf.size == 0):                             # return 0 if no peak candidates
 		return 0
 
-	f0, f0error = UF_C.twm(pfreq, pmag, f0cf)        # call the TWM function with peak candidates
+	f0, f0error = TWM_p(pfreq, pmag, f0cf)        # call the TWM function with peak candidates
 
 	if (f0>0) and (f0error<ef0max):                  # accept and return f0 if below max error allowed
 		return f0
